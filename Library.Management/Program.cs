@@ -1,9 +1,16 @@
+using Library.Management.Repositary.DbConfigure;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddDbContext<LibraryMDbContext>(x => x.UseSqlServer
+(builder.Configuration.GetConnectionString("LibraryMDbContextCS")));
 
 var app = builder.Build();
+
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
