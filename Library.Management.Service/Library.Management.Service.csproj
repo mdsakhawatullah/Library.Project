@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Library.Management.Models\Library.Management.Models.csproj" />
+    <ProjectReference Include="..\Library.Management.Repositary\Library.Management.Repositary.csproj" />
+  </ItemGroup>
+
 </Project>

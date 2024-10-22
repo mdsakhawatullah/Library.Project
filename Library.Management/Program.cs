@@ -1,4 +1,8 @@
 using Library.Management.Repositary.DbConfigure;
+using Library.Management.Repositary.InterfaceRepositary;
+using Library.Management.Repositary.Repositary;
+using Library.Management.Service.InterfaceService;
+using Library.Management.Service.Service;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,6 +11,19 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<LibraryMDbContext>(x => x.UseSqlServer
 (builder.Configuration.GetConnectionString("LibraryMDbContextCS")));
+
+//Services
+builder.Services.AddScoped<ILibraryBookService, LibraryBookService>();
+builder.Services.AddScoped<IMemberService, MemberService>();
+builder.Services.AddScoped<IStaffService, StaffService>();
+builder.Services.AddScoped<IStudentService, StudentService>();
+
+
+//repositaries
+builder.Services.AddScoped<ILibraryBookRepositary, LibraryBookRepositary>();
+builder.Services.AddScoped<IMemberRepositary, MemberRepositary>();
+builder.Services.AddScoped<IStaffRepositary, StaffRepositary>();
+builder.Services.AddScoped<IStudentRepositary, StudentRepositary>();
 
 var app = builder.Build();
 

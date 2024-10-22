@@ -17,6 +17,8 @@ namespace Library.Management.Repositary.DbConfigure
 
 		public DbSet<LibraryBook> LibraryBooks { get; set; }
 		public DbSet<BorrowRecord> BorrowRecords { get; set; }
-
+		public DbSet<Member> Members { get; set; }
+		public DbSet<Student> Students { get; set; }
+		public DbSet<Staff> Staffs { get; set; }
 	}
 }

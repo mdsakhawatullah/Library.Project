@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Library.Management.Models.Staff>
+
+@{
+	ViewData["Title"] = "Staff List";
+}
+
+@if (TempData["SuccessMessage"] != null)
+{
+	<div class="alert alert-success alert-dismissible fade show" role="alert">
+		@TempData["SuccessMessage"]
+		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	</div>
+}
+<h2>@ViewData["Title"]</h2>
+
+<table class="table table-hover table-striped">
+	<thead class="table-primary">
+		<tr>
+			<th>Name</th>
+			<th>Gender</th>
+			<th>Join Date</th>
+			<th>File Name</th>
+			<th>Actions</th>
+		</tr>
+
+	</thead>
+	<tbody>
+		@foreach(var staff in Model)
+		{
+			<tr>
+				<td>@staff.StaffName</td>
+				<td>@staff.Gender</td>
+				<td>@staff.JoinOfDate.ToString("yyyy-mm-dd")</td>
+				<td>@staff.FileName</td>
+				<td>
+					<a asp-action="Edit" asp-route-id="@staff.StaffId" class="btn btn-info btn-sm">Details</a>
+					<a asp-action="Edit" asp-route-id="@staff.StaffId" class="btn btn-warning btn-sm">Edit</a>
+					<a asp-action="Delete" asp-route-id="@staff.StaffId" class="btn btn-danger btn-sm">Delete</a>
+				</td>
+			</tr>
+		}
+	</tbody>
+
+</table>
+<a asp-action="Create" class="btn btn-primary">Add New Staffs</a>
