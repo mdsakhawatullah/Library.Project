@@ -13,6 +13,7 @@ namespace Library.Management.Repositary.InterfaceRepositary
 		Task<LibraryBook> GetByIdAsync(int id);
 		Task AddAsync(LibraryBook entity);
 		Task UpdateAsync(LibraryBook entity);
+		Task<LibraryBook> GetEdit(int id);
 		Task DeleteAsync(int id);
 		
 	}

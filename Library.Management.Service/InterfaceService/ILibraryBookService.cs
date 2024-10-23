@@ -16,6 +16,7 @@ namespace Library.Management.Service.InterfaceService
 		Task AddAsync(LibraryBook entity);
 
 		Task UpdateAsync(LibraryBook entity);
+		Task<LibraryBook> GetEdit(int id);
 
 		Task DeleteAsync(int id);
 	}

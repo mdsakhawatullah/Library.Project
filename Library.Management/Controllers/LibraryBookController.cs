@@ -1,4 +1,5 @@
-﻿using Library.Management.Service.InterfaceService;
+﻿using Library.Management.Models;
+using Library.Management.Service.InterfaceService;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Library.Management.Controllers
@@ -49,5 +50,78 @@ namespace Library.Management.Controllers
 			}
 		}
 
-	}
+        // GET: Books/Create
+		public IActionResult Create()
+		{
+			return View();
+		}
+
+		// POST: Books/Create
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public async Task<IActionResult> Create(LibraryBook libraryBook)
+		{
+			if(ModelState.IsValid)
+			{
+				try
+				{
+					await _LibraryBookService.AddAsync(libraryBook);
+					TempData["SuccessMessage"] = $"Successfully added this book: {libraryBook.Title}";
+					return RedirectToAction("Index");
+				}
+                catch (Exception ex)
+                {
+                    TempData["ErrorMessage"] = "An error occurred while adding the book.";
+                    return View(libraryBook);
+                }
+            }
+			return View(libraryBook);
+			
+		}
+
+        // GET: Books/Edit/5
+		public async Task<IActionResult> Edit(int? id)
+		{
+			if(id==null || id==0)
+			{
+                TempData["ErrorMessage"] = "Book ID was not provided for editing.";
+                return View("NotFound");
+            }
+			try
+			{
+				var book = await _LibraryBookService.GetEdit(id.Value);
+				return View(book);
+			}
+			catch(Exception ex)
+			{
+                TempData["ErrorMessage"] = ex.Message;
+                return View("Error");
+            }
+		}
+
+		// POST: Books/Edit/5
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public async Task<IActionResult> Edit(int id, LibraryBook libraryBook)
+		{
+            libraryBook.BookId = id;
+            if (ModelState.IsValid)
+			{
+				try
+				{
+					await _LibraryBookService.UpdateAsync(libraryBook);
+					TempData["SuccessMessage"] = $"Successfully updated the book: {libraryBook.Title}";
+
+                    return RedirectToAction("Index");
+                }
+                catch (Exception ex)
+                {
+                    TempData["ErrorMessage"] = ex.Message;
+                    return View("Error");
+                }
+            }
+			return View(libraryBook);
+		}
+
+    }
 }

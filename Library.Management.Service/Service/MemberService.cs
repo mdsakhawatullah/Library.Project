@@ -45,6 +45,7 @@ namespace Library.Management.Service.Service
 
         public Task UpdateAsync(Member entity)
         {
+           
             return _MemberRepositary.UpdateAsync(entity);
         }
     }

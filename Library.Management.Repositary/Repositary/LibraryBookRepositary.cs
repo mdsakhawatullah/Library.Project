@@ -38,6 +38,10 @@ namespace Library.Management.Repositary.Repositary
 			await _context.SaveChangesAsync();
 			
 		}
+		public async Task<LibraryBook> GetEdit(int id)
+		{
+			return await _context.LibraryBooks.FirstOrDefaultAsync(b => b.BookId == id);
+		}
 
 		public async Task UpdateAsync(LibraryBook entity)
 		{

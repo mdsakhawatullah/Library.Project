@@ -1,0 +1,47 @@
+﻿@model Library.Management.Models.Student
+@{
+	ViewData["Title"] = "Staff Details";
+}
+
+<div class="container mt-5">
+	<div class="row">
+		<!--Student Image-->
+		<div class="col-md-3 text-center">
+			<img src='https://miro.medium.com/v2/resize:fit:10944/1*S81O15rjKfG-BFdnNC6-GQ.jpeg' alt="@Model.StudentId" class="h-100 img-fluid rounded shadow">
+		</div>
+		<!--Student Body-->
+		<div class="col-md-9">
+			<div class="card h-100">
+				<div class="card-header bg-primary text-white">
+					<h3 class="card-title">@Model.StudentId</h3>
+				</div>
+				<div class="card-body">
+					<dl class="row">
+						<dt class="col-sm-4">Name</dt>
+						<dd class="col-sm-8">@Model.StudentName</dd>
+
+						<dt class="col-sm-4">Gender</dt>
+						<dd class="col-sm-8">@Model.Gender</dd>
+
+						<dt class="col-sm-4">File Name</dt>
+						<dd class="col-sm-8">@Model.FileName</dd>
+					</dl>
+
+				</div>
+				<div class="card-footer">
+					<a asp-action="Edit" asp-route-id="@Model.StudentId" class="btn btn-warning me-2">
+						<i class="bi bi-pencil-square"></i> Edit
+					</a>
+					<a asp-action="Index" class="btn btn-secondary">
+						<i class="bi bi-arrow-left-circle"></i> Back to List
+					</a>
+				</div>
+
+			</div>
+		</div>
+
+	</div>
+
+</div>
+@*  Include Bootstrap Icons for better button visuals  *@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">

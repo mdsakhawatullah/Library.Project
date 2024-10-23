@@ -39,7 +39,19 @@ namespace Library.Management.Service.Service
 
 		public Task UpdateAsync(LibraryBook entity)
 		{
-			return _LibraryBookRepositary.UpdateAsync(entity);
+			
+            return _LibraryBookRepositary.UpdateAsync(entity);
+			
+		}
+		public Task<LibraryBook> GetEdit(int id)
+		{
+			var book = _LibraryBookRepositary.GetEdit(id);
+			if(book == null)
+			{
+				throw new Exception("No Book id found");
+			
+			}
+			return book;
 		}
 
 		public Task DeleteAsync(int id)
