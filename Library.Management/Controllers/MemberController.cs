@@ -11,6 +11,7 @@ namespace Library.Management.Controllers
             _MemberService = MemberService;
             
         }
+        //GET: Members
        public async Task<IActionResult> Index()
         {
             try
@@ -21,6 +22,25 @@ namespace Library.Management.Controllers
             catch(Exception ex)
             {
                 TempData["ErrorMessage"] = "An error occured while loading member list";
+                return View("Error");
+            }
+        }
+        //GET: Members/Details/5
+        public async Task<IActionResult> Details(int? id)
+        {
+            if(id == null || id == 0)
+            {
+                TempData["ErrorMessage"] = "Member id was not provided";
+                return View("Not Found");
+            }
+            try
+            {
+                var member = await _MemberService.GetById(id.Value);
+                return View(member);
+            }
+            catch(Exception ex)
+            {
+                TempData["ErrorMessage"] = ex.Message;
                 return View("Error");
             }
         }

@@ -35,7 +35,12 @@ namespace Library.Management.Service.Service
 
         public Task<Staff> GetById(int id)
         {
-            return _StaffRepositary.GetByIdAsync(id);
+            var staff = _StaffRepositary.GetByIdAsync(id);
+            if(staff == null)
+            {
+                throw new Exception($"No staff found for this {id}");
+            }
+            return staff;
         }
 
         public Task UpdateAsync(Staff entity)

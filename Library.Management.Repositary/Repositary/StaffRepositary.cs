@@ -24,7 +24,7 @@ namespace Library.Management.Repositary.Repositary
         }
         public async Task<Staff> GetByIdAsync(int id)
         {
-            return await _context.Staffs.FindAsync(id);
+            return await _context.Staffs.FirstOrDefaultAsync(s => s.StaffId==id);
         }
         public async Task AddAsync(Staff entity)
         {

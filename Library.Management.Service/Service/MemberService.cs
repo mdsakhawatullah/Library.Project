@@ -35,7 +35,12 @@ namespace Library.Management.Service.Service
 
         public Task<Member> GetById(int id)
         {
-            return _MemberRepositary.GetByIdAsync(id);
+            var member = _MemberRepositary.GetByIdAsync(id);
+            if(member == null)
+            {
+                throw new Exception($"No member found for this {id}");
+            }
+            return member;
         }
 
         public Task UpdateAsync(Member entity)

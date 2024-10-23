@@ -11,6 +11,7 @@ namespace Library.Management.Controllers
 			_StaffService = StaffService;
             
         }
+		//GET: Staff
         public async Task<IActionResult> Index()
 		{
 			try
@@ -20,7 +21,27 @@ namespace Library.Management.Controllers
 			}
 			catch(Exception ex)
 			{
-				TempData["ErrorMessage"] = "An error occured while loading Staff List";
+				TempData["ErrorMessage"] = ex.Message;
+				return View("Error");
+			}
+		}
+		//GET: Staff/Details/2
+		public async Task<IActionResult> Details(int? id)
+		{
+			if(id == null || id == 0)
+			{
+				TempData["ErrorMessage"] = "Staff id not provded";
+				return View("Not Found");
+
+			}
+			try
+			{
+				var staff = await _StaffService.GetById(id.Value);
+				return View(staff);
+			}
+			catch(Exception ex)
+			{
+				TempData["ErrorMessage"] = ex.Message;
 				return View("Error");
 			}
 		}

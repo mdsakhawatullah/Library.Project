@@ -12,6 +12,7 @@ namespace Library.Management.Controllers
 			_StudentService = StudentService;
             
         }
+		//GET: Studnets
         public async  Task<IActionResult> Index()
 		{
 			try
@@ -21,7 +22,26 @@ namespace Library.Management.Controllers
 			}
 			catch(Exception ex)
 			{
-				TempData["ErrorMessage"] = "An error occured when loading the student list";
+				TempData["ErrorMessage"] = ex.Message;
+				return View("Error");
+			}
+		}
+		//GET: Studnets/Details/5
+		public async Task<IActionResult> Details(int? id)
+		{
+			if(id == null || id== 0)
+			{
+				TempData["ErrorMessage"] = "An error occured while loading information";
+				return View("Error");
+			}
+			try
+			{
+				var student = await _StudentService.GetById(id.Value);
+				return View(student);
+			}
+			catch (Exception ex)
+			{
+				TempData["ErrorMessage"] = ex.Message;
 				return View("Error");
 			}
 		}

@@ -23,7 +23,7 @@ namespace Library.Management.Repositary.Repositary
         }
         public async Task<Member> GetByIdAsync(int id)
         {
-            return await _context.Members.FindAsync(id);
+            return await _context.Members.FirstOrDefaultAsync(m => m.MemberId == id);
         }
         public async Task AddAsync(Member entity)
         {

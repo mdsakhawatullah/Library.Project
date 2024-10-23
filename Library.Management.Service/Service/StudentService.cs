@@ -23,7 +23,12 @@ namespace Library.Management.Service.Service
         }
         public Task<Student> GetById(int id)
         {
-            return _StudentRepositary.GetByIdAsync(id);
+            var student = _StudentRepositary.GetByIdAsync(id);
+            if(student == null)
+            {
+                throw new Exception($"An error occured for this {id}");
+            }
+            return student;
         }
         public Task AddAsync(Student entity)
         {
