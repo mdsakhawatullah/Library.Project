@@ -15,6 +15,7 @@ namespace Library.Management.Repositary.InterfaceRepositary
 		Task UpdateAsync(LibraryBook entity);
 		Task<LibraryBook> GetEdit(int id);
 		Task DeleteAsync(int id);
+		Task<bool> BookExists(int id);
 		
 	}
 }

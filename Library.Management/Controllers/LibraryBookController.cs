@@ -1,6 +1,7 @@
 ﻿using Library.Management.Models;
 using Library.Management.Service.InterfaceService;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq.Expressions;
 
 namespace Library.Management.Controllers
 {
@@ -36,7 +37,7 @@ namespace Library.Management.Controllers
 			if (id == null || id==0)
 			{
 				TempData["ErrorMessage"] = "Book id was not provided";
-				return View("Not found");
+				return View("NotFound");
 			}
 			try
 			{
@@ -121,6 +122,61 @@ namespace Library.Management.Controllers
                 }
             }
 			return View(libraryBook);
+		}
+        // GET: Books/Delete/5
+		public async Task<IActionResult> Delete(int? id)
+		{
+			if(id == null || id == 0)
+			{
+				TempData["ErrorMessage"] = "An error occured while deleting the id";
+				return View("NotFound");
+			}
+			try
+			{
+				var libraryBook = await _LibraryBookService.GetById(id.Value);
+				if(libraryBook == null)
+				{
+					TempData["ErrorMessage"] = $"Not Found this book for this {id}";
+					return View("NotFound");
+				}
+				return View(libraryBook);
+			}
+			catch(Exception ex)
+			{
+
+                TempData["ErrorMessage"] = ex.Message;
+				return View("Error");
+            }
+		}
+
+		// POST: Books/Delete/5
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public async Task<IActionResult> Delete(int id)
+		{
+			try
+			{
+				var book = await _LibraryBookService.GetById(id);
+                if (book == null)
+                {
+                    TempData["ErrorMessage"] = "Book not found.";
+                    return RedirectToAction("Index");
+                }
+                await _LibraryBookService.DeleteAsync(id);
+				TempData["SuccessMessage"] = $"Successfully deleted this book: {book.Title}";
+
+				return RedirectToAction("Index");
+			}
+			catch(Exception ex)
+			{
+				TempData["ErrorMessage"] = ex.Message;
+				return View("Error");
+			}
+		}
+
+		private async Task<bool> LibraryBookExists(int id)
+		{
+			return await _LibraryBookService.BookExists(id);
 		}
 
     }

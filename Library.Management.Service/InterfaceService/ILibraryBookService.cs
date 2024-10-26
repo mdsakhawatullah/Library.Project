@@ -19,5 +19,6 @@ namespace Library.Management.Service.InterfaceService
 		Task<LibraryBook> GetEdit(int id);
 
 		Task DeleteAsync(int id);
-	}
+        Task<bool> BookExists(int id);
+    }
 }

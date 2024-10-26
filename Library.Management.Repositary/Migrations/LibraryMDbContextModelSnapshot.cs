@@ -44,15 +44,16 @@ namespace Library.Management.Repositary.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("LibraryBookBookId")
-                        .HasColumnType("int");
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("ReturnDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("BorrowRecordId");
 
-                    b.HasIndex("LibraryBookBookId");
+                    b.HasIndex("BookId");
 
                     b.ToTable("BorrowRecords");
                 });
@@ -171,8 +172,8 @@ namespace Library.Management.Repositary.Migrations
             modelBuilder.Entity("Library.Management.Models.BorrowRecord", b =>
                 {
                     b.HasOne("Library.Management.Models.LibraryBook", "LibraryBook")
-                        .WithMany("BorrowRecord")
-                        .HasForeignKey("LibraryBookBookId")
+                        .WithMany("BorrowRecords")
+                        .HasForeignKey("BookId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -181,7 +182,7 @@ namespace Library.Management.Repositary.Migrations
 
             modelBuilder.Entity("Library.Management.Models.LibraryBook", b =>
                 {
-                    b.Navigation("BorrowRecord");
+                    b.Navigation("BorrowRecords");
                 });
 #pragma warning restore 612, 618
         }

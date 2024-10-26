@@ -22,7 +22,7 @@ namespace Library.Management.Repositary.Repositary
 		public async Task<IEnumerable<LibraryBook>> GetAllAsync()
 		{
 			return await _context.LibraryBooks
-				.Include(b => b.BorrowRecord)
+				.Include(b => b.BorrowRecords)
 				.AsNoTracking()
 				.ToListAsync();
 		}
@@ -57,6 +57,10 @@ namespace Library.Management.Repositary.Repositary
 				_context.LibraryBooks.Remove(entity);
 				await _context.SaveChangesAsync();
 			}
+		}
+		public async Task<bool> BookExists(int id)
+		{
+			return await _context.LibraryBooks.AnyAsync(b => b.BookId == id);
 		}
 	}
 }

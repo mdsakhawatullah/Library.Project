@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,9 +19,16 @@ namespace Library.Management.Models
 
 		[Required(ErrorMessage = "Please enter Borrower Name")]
 		public string BorrowerName { get; set; }
+
 		[Required(ErrorMessage = "Please enter Borrower Email Address")]
 		[EmailAddress(ErrorMessage = "Please enter a Email Address")]
 		public string BorrowerEmail { get; set; }
+
+		[Required(ErrorMessage ="Please provide borrower phone no")]
+		[Phone(ErrorMessage = "Please Provide Valid Phone Number")]
+		public string Phone { get; set; }
+
+
 		
 		[BindNever]
 		[DataType(DataType.DateTime)]
@@ -29,7 +37,9 @@ namespace Library.Management.Models
 		[DataType(DataType.DateTime)]
 		public DateTime? ReturnDate { get; set; }
 		
+		// navigation property
 		[BindNever]
-		public LibraryBook LibraryBook { get; set; }
+        [ForeignKey("BookId")] // Explicitly map BookId to LibraryBook's BookId
+        public LibraryBook LibraryBook { get; set; }
 	}
 }

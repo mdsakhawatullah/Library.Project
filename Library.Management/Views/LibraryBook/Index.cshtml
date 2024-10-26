@@ -53,7 +53,24 @@
 					<a asp-action="Delete" asp-route-id="@book.BookId" class="btn btn-danger btn-sm">Delete</a>
 					@if (book.IsAvailable)
 					{
-					 <a asp-controller="" asp-action="Create" asp-route-bookId="@book.BookId" class="btn btn-primary btn-sm">Borrow</a>
+						<a asp-controller="Borrow" asp-action="Create"
+						asp-route-id="@book.BookId" class="btn btn-primary btn-sm">Borrow</a>
+					}
+					else
+					{
+						var activeBorrowRecord = book.BorrowRecords?.FirstOrDefault(b => b.ReturnDate == null);
+						if(activeBorrowRecord != null)
+						{
+							<a asp-controller="Borrow" asp-action="Return" 
+							asp-route-id="@activeBorrowRecord.BorrowRecordId"
+							class="btn btn-success btn-sm">Return</a>
+						}
+						else
+						{
+					
+						<span class="text-muted">No active borrow record</span>
+							
+						}
 					}
 
 				</td>

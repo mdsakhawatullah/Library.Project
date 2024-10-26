@@ -17,6 +17,7 @@ builder.Services.AddScoped<ILibraryBookService, LibraryBookService>();
 builder.Services.AddScoped<IMemberService, MemberService>();
 builder.Services.AddScoped<IStaffService, StaffService>();
 builder.Services.AddScoped<IStudentService, StudentService>();
+builder.Services.AddScoped<IBorrowBookService, BorrowBookService>();
 
 
 //repositaries
@@ -24,6 +25,7 @@ builder.Services.AddScoped<ILibraryBookRepositary, LibraryBookRepositary>();
 builder.Services.AddScoped<IMemberRepositary, MemberRepositary>();
 builder.Services.AddScoped<IStaffRepositary, StaffRepositary>();
 builder.Services.AddScoped<IStudentRepositary, StudentRepositary>();
+builder.Services.AddScoped<IBorrowBookRepositary, BorrowBookRepositary>();
 
 var app = builder.Build();
 

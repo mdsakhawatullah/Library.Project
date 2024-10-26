@@ -29,9 +29,9 @@ namespace Library.Management.Models
 		[BindNever]
 		public bool IsAvailable { get; set; } = true;
 
-		
-		[BindNever]
-		public IEnumerable<BorrowRecord>? BorrowRecord { get; set; }
+        // navigation property
+        [BindNever]
+		public IEnumerable<BorrowRecord>? BorrowRecords { get; set; }
 
 	}
 }

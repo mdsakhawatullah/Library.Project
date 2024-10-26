@@ -58,6 +58,10 @@ namespace Library.Management.Service.Service
 		{
 			return _LibraryBookRepositary.DeleteAsync(id);
 		}
+		public Task<bool> BookExists(int id)
+		{
+			return _LibraryBookRepositary.BookExists(id);
+		}
 
 
 
