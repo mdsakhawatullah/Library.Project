@@ -26,4 +26,16 @@ A simple Library Management System built with ASP.NET Core that allows users to 
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/LibraryManagementSystem.git
+   git clone https://github.com/mdsakhawatullah/Library.Project.git
+2. Navigate to the project directory:
+   ```bash
+   cd Library.Projects
+3. Restore Packages
+   ```bash
+   dotnet restore
+4. Update ConnectionString in
+   ```bash
+   apsettings.json
+5. Run the Application
+   ```bash
+   dotnet run
