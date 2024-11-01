@@ -129,5 +129,29 @@ namespace Library.Management.Controllers
 				return View("NotFound");
 			}
 		}
+
+		// POST: Borrow/Return/5
+		///<summary>
+		///Processes the return action, updates the BorrowRecord with the return date, updates the book's availability
+		///</summary>
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public async Task<IActionResult> Return(ReturnView model)
+		{
+			if(!ModelState.IsValid)
+			{
+				return View(model);
+			}
+			try
+			{
+				await _BorrowBookService.ReturnBookAsync(model.BorrowRecordId);
+				return RedirectToAction("Index", "LibraryBook");
+			}
+			catch(Exception ex)
+			{
+				TempData["ErrorMessage"] = ex.Message;
+				return View(model);
+			}
+		}
 	}
 }

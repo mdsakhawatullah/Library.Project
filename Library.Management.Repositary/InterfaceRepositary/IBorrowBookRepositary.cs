@@ -11,5 +11,6 @@ namespace Library.Management.Repositary.InterfaceRepositary
     {
         Task BorrowAddAsync(BorrowRecord entity);
         Task<BorrowRecord> GetBorrowRecordByIdAsync(int id);
-    }
+		Task UpdateBorrowRecordAsync(BorrowRecord borrowRecord);
+	}
 }

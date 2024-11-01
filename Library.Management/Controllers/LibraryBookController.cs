@@ -1,10 +1,12 @@
 ﻿using Library.Management.Models;
 using Library.Management.Service.InterfaceService;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq.Expressions;
 
 namespace Library.Management.Controllers
 {
+	[Authorize]
 	public class LibraryBookController : Controller
 	{
 		private readonly ILibraryBookService _LibraryBookService;

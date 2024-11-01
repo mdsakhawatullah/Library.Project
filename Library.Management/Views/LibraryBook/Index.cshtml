@@ -62,19 +62,19 @@
 					}
 					else
 					{
-						var activeBorrowRecord = book.BorrowRecords?.FirstOrDefault(b => b.ReturnDate == null);
+						var activeBorrowRecord = book.BorrowRecords?.FirstOrDefault(x => x.ReturnDate == null);
 						if(activeBorrowRecord != null)
 						{
-							<a asp-controller="Borrow" asp-action="Return" 
-							asp-route-id="@activeBorrowRecord.BorrowRecordId"
+							<a asp-controller="Borrow" asp-action="Return"
+							   asp-route-id="@activeBorrowRecord.BorrowRecordId"
 							class="btn btn-success btn-sm">Return</a>
 						}
-						else
+						 else
 						{
 					
 						<span class="text-muted">No active borrow record</span>
 							
-						}
+						} 
 					}
 
 				</td>

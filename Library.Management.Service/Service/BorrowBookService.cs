@@ -42,5 +42,27 @@ namespace Library.Management.Service.Service
             };
 
         }
-    }
+
+        public async Task ReturnBookAsync(int borrowId)
+        {
+            var borrowRecord = await _BorrowBookRepositary.GetBorrowRecordByIdAsync(borrowId);
+			if (borrowRecord == null)
+			{
+				throw new InvalidOperationException($"No borrow record found with ID {borrowId} to return.");
+			}
+			if (borrowRecord.ReturnDate != null)
+			{
+				throw new InvalidOperationException($"The borrow record for '{borrowRecord.LibraryBook.Title}' has already been returned.");
+			}
+
+            borrowRecord.ReturnDate = DateTime.UtcNow;
+            borrowRecord.LibraryBook.IsAvailable = true;
+
+            await _BorrowBookRepositary.UpdateBorrowRecordAsync(borrowRecord);
+
+		}
+
+
+
+	}
 }

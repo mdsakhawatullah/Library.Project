@@ -1,16 +1,34 @@
+using Library.Management.Models;
 using Library.Management.Repositary.DbConfigure;
 using Library.Management.Repositary.InterfaceRepositary;
 using Library.Management.Repositary.Repositary;
 using Library.Management.Service.InterfaceService;
 using Library.Management.Service.Service;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var connectionString = builder.Configuration.GetConnectionString("LibraryMDbContextCS");
+
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddDbContext<LibraryMDbContext>(x => x.UseSqlServer
-(builder.Configuration.GetConnectionString("LibraryMDbContextCS")));
+builder.Services.AddDbContext<LibraryMDbContext>(x => x.UseSqlServer(connectionString));
+
+//register identity with LibraryMDbContext
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+				.AddEntityFrameworkStores<LibraryMDbContext>()
+				.AddDefaultTokenProviders();
+
+builder.Services.Configure<IdentityOptions>(options =>
+{
+	options.Password.RequireDigit = true;
+	options.Password.RequireLowercase = true;
+	options.Password.RequireUppercase = true;
+	options.Password.RequiredLength = 6;
+	options.User.RequireUniqueEmail = true;
+
+});
 
 //Services
 builder.Services.AddScoped<ILibraryBookService, LibraryBookService>();
