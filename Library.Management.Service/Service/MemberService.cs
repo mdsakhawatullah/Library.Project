@@ -1,4 +1,6 @@
-﻿using Library.Management.Models;
+﻿using AutoMapper;
+using Library.Management.Models;
+using Library.Management.Models.BusinessModels;
 using Library.Management.Repositary.InterfaceRepositary;
 using Library.Management.Service.InterfaceService;
 using System;
@@ -12,9 +14,11 @@ namespace Library.Management.Service.Service
     public class MemberService : IMemberService
     {
         private readonly IMemberRepositary _MemberRepositary;
-        public MemberService(IMemberRepositary MemberRepositary)
+        private readonly IMapper _mapper;
+        public MemberService(IMemberRepositary MemberRepositary, IMapper mapper)
         {
             _MemberRepositary = MemberRepositary;
+            _mapper = mapper;
             
         }
 
@@ -33,14 +37,14 @@ namespace Library.Management.Service.Service
             return _MemberRepositary.GetAllAsync();
         }
 
-        public Task<Member> GetById(int id)
+        public async Task<MemberVM> GetById(int id)
         {
-            var member = _MemberRepositary.GetByIdAsync(id);
+            var member = await _MemberRepositary.GetByIdAsync(id);
             if(member == null)
             {
                 throw new Exception($"No member found for this {id}");
             }
-            return member;
+            return _mapper.Map<MemberVM>(member);
         }
 
         public Task UpdateAsync(Member entity)

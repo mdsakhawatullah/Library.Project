@@ -1,4 +1,5 @@
-﻿using Library.Management.Service.InterfaceService;
+﻿using AutoMapper;
+using Library.Management.Service.InterfaceService;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Library.Management.Controllers
@@ -6,9 +7,11 @@ namespace Library.Management.Controllers
     public class MemberController : Controller
     {
         private readonly IMemberService _MemberService;
-        public MemberController(IMemberService MemberService)
+        private readonly IMapper _mapper;
+        public MemberController(IMemberService MemberService, IMapper mapper)
         {
             _MemberService = MemberService;
+            _mapper = mapper;
             
         }
         //GET: Members
@@ -21,8 +24,8 @@ namespace Library.Management.Controllers
             }
             catch(Exception ex)
             {
-                TempData["ErrorMessage"] = "An error occured while loading member list";
-                return View("Error");
+                TempData["ErrorMessage"] = ex.Message;
+                return View("NotFound");
             }
         }
         //GET: Members/Details/5

@@ -1,4 +1,5 @@
 ﻿using Library.Management.Models;
+using Library.Management.Models.BusinessModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace Library.Management.Service.InterfaceService
     {
         Task<IEnumerable<Member>> GetAllAsync();
 
-        Task<Member> GetById(int id);
+        Task<MemberVM> GetById(int id);
 
         Task AddAsync(Member entity);
 

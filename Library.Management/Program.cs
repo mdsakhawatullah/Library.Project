@@ -1,3 +1,4 @@
+using Library.Management.Helper;
 using Library.Management.Models;
 using Library.Management.Repositary.DbConfigure;
 using Library.Management.Repositary.InterfaceRepositary;
@@ -45,7 +46,15 @@ builder.Services.AddScoped<IStaffRepositary, StaffRepositary>();
 builder.Services.AddScoped<IStudentRepositary, StudentRepositary>();
 builder.Services.AddScoped<IBorrowBookRepositary, BorrowBookRepositary>();
 
+builder.Services.AddAutoMapper(typeof(MappingProfile));
+
 var app = builder.Build();
+
+//using (var scope = app.Services.CreateScope())
+//{
+//    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+//    await RoleInitializer.InitializeAsync(roleManager);
+//}
 
 
 
@@ -58,6 +67,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

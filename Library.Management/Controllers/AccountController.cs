@@ -36,7 +36,7 @@ namespace Library.Management.Controllers
                     {
                         await _userManager.AddToRoleAsync(user, "User");
                         await _signInManager.SignInAsync(user, isPersistent: false);
-
+                        TempData["SuccessMessage"] = "Successfully LogIn";
                         return RedirectToAction("Index", "LibraryBook");
                     }
                     var msg = string.Empty;
@@ -45,7 +45,7 @@ namespace Library.Management.Controllers
                         msg = error.Description + "\n";
                     }
                     TempData["ErrorMessage"] = msg;
-                    return RedirectToAction("Index", "LibraryBook");
+                    return RedirectToAction("Login");
                 }
                 return View(model);
             }
@@ -74,7 +74,12 @@ namespace Library.Management.Controllers
                     if(result.Succeeded)
                     {
                         TempData["SuccessMessage"] = "Successfully Logged In";
-                        return RedirectToAction("Index","LibraryBook");
+                        return RedirectToAction("Index", "LibraryBook");
+                    }
+                    else
+                    {
+                        TempData["ErrorMessage"] = "Result Not Success";
+                        return View("NotFound");
                     }
 
                 }
